@@ -1,0 +1,16 @@
+version: 3
+
+tasks:
+  build:
+    desc: build the spring boot app image
+    cmds:
+      - docker build -t spring-boot-demo:latest .
+  run:
+    desc: run the spring boot app
+    deps:
+      - build
+    cmds:
+      - >
+        docker run --rm -it -p 8085:8085
+        -v $(pwd)/application.properties:/app/application.properties
+        spring-boot-demo:latest
